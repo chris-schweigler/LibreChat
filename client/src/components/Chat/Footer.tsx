@@ -67,9 +67,12 @@ export default function Footer({ className }: { className?: string }) {
     </React.Fragment>
   ));
 
-  const footerElements = [...mainContentRender, privacyPolicyRender, termsOfServiceRender].filter(
-    Boolean,
-  );
+  const hasMainContent = mainContentParts.some((part) => part.trim().length > 0);
+  const footerElements = [
+    ...(hasMainContent ? mainContentRender : []),
+    privacyPolicyRender,
+    termsOfServiceRender,
+  ].filter(Boolean);
 
   return (
     <div className="relative w-full">
