@@ -1,0 +1,12 @@
+version: 1.2.1
+
+interface:
+  privacyPolicy:
+    externalUrl: "https://karrieremum.at/datenschutz"
+    openNewTab: true
+  termsOfService:
+    externalUrl: "https://karrieremum.at/impressum"
+    openNewTab: true
+
+registration:
+  socialLogins: []

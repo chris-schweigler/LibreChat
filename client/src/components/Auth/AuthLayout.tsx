@@ -100,6 +100,9 @@ function AuthLayout({
             >
               {header}
             </h1>
+            <p className="mt-1 text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>
+              Melde dich mit deiner E-Mail und deinem Passwort an
+            </p>
           </div>
         )}
         {children}
