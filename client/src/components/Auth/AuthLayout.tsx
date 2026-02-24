@@ -39,7 +39,7 @@ function AuthLayout({
         <div className="mx-auto sm:max-w-sm">
           <ErrorMessage>
             {localize('com_auth_error_invalid_reset_token')}{' '}
-            <a className="font-semibold text-green-600 hover:underline" href="/forgot-password">
+            <a className="font-semibold hover:underline" style={{ color: '#c9a87c' }} href="/forgot-password">
               {localize('com_auth_click_here')}
             </a>{' '}
             {localize('com_auth_to_try_again')}
@@ -57,43 +57,56 @@ function AuthLayout({
   };
 
   return (
-    <div className="relative flex min-h-screen flex-col bg-white dark:bg-gray-900">
+    <div
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden"
+      style={{ backgroundColor: '#0d0d14' }}
+    >
       <Banner />
-      <BlinkAnimation active={isFetching}>
-        <div className="mt-8 flex flex-col items-center gap-2">
-          <img
-            src="assets/logo.svg"
-            className="h-24 w-auto object-contain"
-            alt={localize('com_ui_logo', { 0: startupConfig?.appTitle ?? 'KARRIERE.MUM' })}
-          />
-          <img
-            src="assets/by_jenny_schweigler.png"
-            className="h-6 w-auto object-contain opacity-90"
-            alt="by Jenny Schweigler"
-          />
-        </div>
-      </BlinkAnimation>
-      <DisplayError />
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+        <img
+          src="assets/logo.svg"
+          alt=""
+          className="h-[700px] w-[700px] object-contain"
+          style={{ opacity: 0.06 }}
+        />
+      </div>
       <div className="absolute bottom-0 left-0 md:m-4">
         <ThemeSelector />
       </div>
-
-      <main className="flex flex-grow items-center justify-center">
-        <div className="w-authPageWidth overflow-hidden bg-white px-6 py-4 dark:bg-gray-900 sm:max-w-md sm:rounded-lg">
-          {!hasStartupConfigError && !isFetching && header && (
+      <main
+        className="relative z-10 flex w-full max-w-md flex-col gap-6 rounded-2xl px-10 py-10"
+        style={{
+          backgroundColor: 'rgba(13, 13, 20, 0.85)',
+          backdropFilter: 'blur(12px)',
+          border: '1px solid rgba(201, 168, 124, 0.15)',
+        }}
+      >
+        <BlinkAnimation active={isFetching}>
+          <div className="flex justify-center">
+            <img
+              src="assets/by_jenny_schweigler.png"
+              alt={localize('com_ui_logo', { 0: startupConfig?.appTitle ?? 'KARRIERE.MUM' })}
+              className="h-20 w-auto object-contain"
+              style={{ opacity: 0.9 }}
+            />
+          </div>
+        </BlinkAnimation>
+        <DisplayError />
+        {!hasStartupConfigError && !isFetching && header && (
+          <div className="text-center">
             <h1
-              className="mb-4 text-center text-3xl font-semibold text-black dark:text-white"
-              style={{ userSelect: 'none' }}
+              className="text-xl font-semibold"
+              style={{ color: '#c9a87c', userSelect: 'none' }}
             >
               {header}
             </h1>
+          </div>
+        )}
+        {children}
+        {!pathname.includes('2fa') &&
+          (pathname.includes('login') || pathname.includes('register')) && (
+            <SocialLoginRender startupConfig={startupConfig} />
           )}
-          {children}
-          {!pathname.includes('2fa') &&
-            (pathname.includes('login') || pathname.includes('register')) && (
-              <SocialLoginRender startupConfig={startupConfig} />
-            )}
-        </div>
       </main>
       <Footer startupConfig={startupConfig} />
     </div>
