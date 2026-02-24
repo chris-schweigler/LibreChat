@@ -76,6 +76,14 @@ export default function Presentation({ children }: { children: React.ReactNode }
 
   return (
     <DragDropWrapper className="relative flex w-full grow overflow-hidden bg-presentation">
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+        <img
+          src="/assets/logo.svg"
+          alt=""
+          className="h-[600px] w-[600px] object-contain"
+          style={{ opacity: 0.04 }}
+        />
+      </div>
       <SidePanelProvider>
         <SidePanelGroup
           defaultLayout={defaultLayout}
