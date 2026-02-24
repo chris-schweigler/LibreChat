@@ -1517,5 +1517,13 @@
   "com_ui_zoom_in": "Zoom in",
   "com_ui_zoom_level": "Zoom level",
   "com_ui_zoom_out": "Zoom out",
-  "com_user_message": "You"
+  "com_user_message": "You",
+  "com_ui_admin_users_title": "User Management",
+  "com_ui_admin_invite_title": "Send New Invitation",
+  "com_ui_admin_invite_send": "Send Invitation",
+  "com_ui_admin_invite_sending": "Sending...",
+  "com_ui_admin_invite_success": "Invitation sent successfully!",
+  "com_ui_admin_invite_error": "Error sending invitation",
+  "com_ui_admin_users_list": "Registered Users",
+  "com_ui_admin_no_users": "No users found"
 }

@@ -412,3 +412,7 @@ export const getAllEffectivePermissions = (resourceType: ResourceType) =>
 // SharePoint Graph API Token
 export const graphToken = (scopes: string) =>
   `${BASE_URL}/api/auth/graph-token?scopes=${encodeURIComponent(scopes)}`;
+
+// Admin User Management
+export const adminUsers = () => `${BASE_URL}/api/admin/users`;
+export const adminInviteUser = () => `${BASE_URL}/api/admin/users/invite`;

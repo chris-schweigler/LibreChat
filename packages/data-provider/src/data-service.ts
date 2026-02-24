@@ -1083,3 +1083,12 @@ export interface ActiveJobsResponse {
 export const getActiveJobs = (): Promise<ActiveJobsResponse> => {
   return request.get(endpoints.activeJobs());
 };
+
+/* Admin User Management */
+export const getAdminUsers = (): Promise<q.TAdminUser[]> => {
+  return request.get(endpoints.adminUsers());
+};
+
+export const inviteUser = (payload: q.TAdminInvitePayload): Promise<{ message: string }> => {
+  return request.post(endpoints.adminInviteUser(), payload);
+};

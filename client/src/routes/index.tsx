@@ -12,6 +12,8 @@ import { MarketplaceProvider } from '~/components/Agents/MarketplaceContext';
 import AgentMarketplace from '~/components/Agents/Marketplace';
 import { OAuthSuccess, OAuthError } from '~/components/OAuth';
 import { AuthContextProvider } from '~/hooks/AuthContext';
+import { InvitePanel } from '~/components/Admin';
+import { useAuthContext } from '~/hooks';
 import RouteErrorBoundary from './RouteErrorBoundary';
 import StartupLayout from './Layouts/Startup';
 import LoginLayout from './Layouts/Login';
@@ -20,6 +22,14 @@ import ShareRoute from './ShareRoute';
 import ChatRoute from './ChatRoute';
 import Search from './Search';
 import Root from './Root';
+
+const AdminRoute = () => {
+  const { user } = useAuthContext();
+  if (user?.role !== 'ADMIN') {
+    return <Navigate to="/c/new" replace />;
+  }
+  return <InvitePanel />;
+};
 
 const AuthLayout = () => (
   <AuthContextProvider>
@@ -126,6 +136,10 @@ export const router = createBrowserRouter(
                   <AgentMarketplace />
                 </MarketplaceProvider>
               ),
+            },
+            {
+              path: 'admin/users',
+              element: <AdminRoute />,
             },
           ],
         },

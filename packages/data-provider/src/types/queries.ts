@@ -206,3 +206,17 @@ export type GraphTokenResponse = {
   expires_in: number;
   scope: string;
 };
+
+/* Admin User Management */
+export type TAdminInvitePayload = {
+  email: string;
+  name: string;
+};
+
+export type TAdminUser = {
+  _id: string;
+  email: string;
+  name: string;
+  role: string;
+  createdAt: string;
+};
