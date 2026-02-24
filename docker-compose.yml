@@ -16,6 +16,7 @@ services:
       - MEILI_HOST=http://meilisearch:7700
       - RAG_PORT=8000
       - RAG_API_URL=http://rag_api:8000
+      - DEFAULT_THEME=dark
     volumes:
       - librechat-images:/app/client/public/images
       - librechat-uploads:/app/uploads
