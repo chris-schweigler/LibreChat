@@ -102,11 +102,11 @@ function Login() {
       <p className="my-4 text-center text-sm font-light" style={{ color: 'rgba(255,255,255,0.4)' }}>
         {'Noch kein Konto? Bitte wende dich an '}
         <a
-          href="mailto:team@karriieremann.at"
+          href="mailto:team@karrieremum.at"
           className="font-medium hover:underline"
           style={{ color: '#c9a87c' }}
         >
-          team@karriieremann.at
+          team@karrieremum.at
         </a>
       </p>
     </>

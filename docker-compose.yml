@@ -20,6 +20,7 @@ services:
       - librechat-images:/app/client/public/images
       - librechat-uploads:/app/uploads
       - librechat-logs:/app/logs
+      - ./librechat.yaml:/app/librechat.yaml:ro
 
   mongodb:
     container_name: chat-mongodb
