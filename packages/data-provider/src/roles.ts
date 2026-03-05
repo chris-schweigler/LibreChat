@@ -111,7 +111,19 @@ const defaultRolesSchema = z.object({
   }),
   [SystemRoles.USER]: roleSchema.extend({
     name: z.literal(SystemRoles.USER),
-    permissions: permissionsSchema,
+    permissions: permissionsSchema.extend({
+      [PermissionTypes.AGENTS]: agentPermissionsSchema.extend({
+        [Permissions.USE]: z.boolean().default(true),
+        [Permissions.CREATE]: z.boolean().default(false),
+      }),
+      [PermissionTypes.MEMORIES]: memoryPermissionsSchema.extend({
+        [Permissions.USE]: z.boolean().default(true),
+        [Permissions.CREATE]: z.boolean().default(true),
+        [Permissions.UPDATE]: z.boolean().default(true),
+        [Permissions.READ]: z.boolean().default(true),
+        [Permissions.OPT_OUT]: z.boolean().default(true),
+      }),
+    }),
   }),
   [SystemRoles.TEAM]: roleSchema.extend({
     name: z.literal(SystemRoles.TEAM),
@@ -205,8 +217,8 @@ export const roleDefaults = defaultRolesSchema.parse({
     permissions: {
       [PermissionTypes.PROMPTS]: {},
       [PermissionTypes.BOOKMARKS]: {},
-      [PermissionTypes.MEMORIES]: {},
-      [PermissionTypes.AGENTS]: {},
+      [PermissionTypes.MEMORIES]: { [Permissions.USE]: true, [Permissions.CREATE]: true, [Permissions.UPDATE]: true, [Permissions.READ]: true, [Permissions.OPT_OUT]: true },
+      [PermissionTypes.AGENTS]: { [Permissions.USE]: true, [Permissions.CREATE]: false },
       [PermissionTypes.MULTI_CONVO]: {},
       [PermissionTypes.TEMPORARY_CHAT]: {},
       [PermissionTypes.RUN_CODE]: {},
