@@ -146,6 +146,12 @@ const PeoplePickerAdminSettings = () => {
       },
     },
     {
+      label: SystemRoles.TEAM,
+      onClick: () => {
+        setSelectedRole(SystemRoles.TEAM);
+      },
+    },
+    {
       label: SystemRoles.ADMIN,
       onClick: () => {
         setSelectedRole(SystemRoles.ADMIN);

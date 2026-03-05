@@ -30,6 +30,10 @@ export enum SystemRoles {
    * The default user role
    */
   USER = 'USER',
+  /**
+   * The team member role — can use agents and marketplace but cannot create agents
+   */
+  TEAM = 'TEAM',
 }
 
 export const roleSchema = z.object({
@@ -108,6 +112,25 @@ const defaultRolesSchema = z.object({
   [SystemRoles.USER]: roleSchema.extend({
     name: z.literal(SystemRoles.USER),
     permissions: permissionsSchema,
+  }),
+  [SystemRoles.TEAM]: roleSchema.extend({
+    name: z.literal(SystemRoles.TEAM),
+    permissions: permissionsSchema.extend({
+      [PermissionTypes.AGENTS]: agentPermissionsSchema.extend({
+        [Permissions.USE]: z.boolean().default(true),
+        [Permissions.CREATE]: z.boolean().default(false),
+      }),
+      [PermissionTypes.MEMORIES]: memoryPermissionsSchema.extend({
+        [Permissions.USE]: z.boolean().default(true),
+        [Permissions.CREATE]: z.boolean().default(true),
+        [Permissions.UPDATE]: z.boolean().default(true),
+        [Permissions.READ]: z.boolean().default(true),
+        [Permissions.OPT_OUT]: z.boolean().default(true),
+      }),
+      [PermissionTypes.MARKETPLACE]: z.object({
+        [Permissions.USE]: z.boolean().default(true),
+      }),
+    }),
   }),
 });
 
@@ -195,6 +218,40 @@ export const roleDefaults = defaultRolesSchema.parse({
       },
       [PermissionTypes.MARKETPLACE]: {
         [Permissions.USE]: false,
+      },
+      [PermissionTypes.FILE_SEARCH]: {},
+      [PermissionTypes.FILE_CITATIONS]: {},
+      [PermissionTypes.MCP_SERVERS]: {},
+      [PermissionTypes.REMOTE_AGENTS]: {},
+    },
+  },
+  [SystemRoles.TEAM]: {
+    name: SystemRoles.TEAM,
+    permissions: {
+      [PermissionTypes.PROMPTS]: {},
+      [PermissionTypes.BOOKMARKS]: {},
+      [PermissionTypes.MEMORIES]: {
+        [Permissions.USE]: true,
+        [Permissions.CREATE]: true,
+        [Permissions.UPDATE]: true,
+        [Permissions.READ]: true,
+        [Permissions.OPT_OUT]: true,
+      },
+      [PermissionTypes.AGENTS]: {
+        [Permissions.USE]: true,
+        [Permissions.CREATE]: false,
+      },
+      [PermissionTypes.MULTI_CONVO]: {},
+      [PermissionTypes.TEMPORARY_CHAT]: {},
+      [PermissionTypes.RUN_CODE]: {},
+      [PermissionTypes.WEB_SEARCH]: {},
+      [PermissionTypes.PEOPLE_PICKER]: {
+        [Permissions.VIEW_USERS]: false,
+        [Permissions.VIEW_GROUPS]: false,
+        [Permissions.VIEW_ROLES]: false,
+      },
+      [PermissionTypes.MARKETPLACE]: {
+        [Permissions.USE]: true,
       },
       [PermissionTypes.FILE_SEARCH]: {},
       [PermissionTypes.FILE_CITATIONS]: {},
